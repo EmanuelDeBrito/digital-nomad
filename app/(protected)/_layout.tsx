@@ -1,6 +1,6 @@
 import { Redirect, Stack } from "expo-router";
 
-const isLogged = false;
+const isLogged = true;
 
 const ProtectedLayout = () => {
   if (!isLogged) {
@@ -8,8 +8,11 @@ const ProtectedLayout = () => {
   }
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
+    <Stack
+      screenOptions={{ headerShown: false, fullScreenGestureEnabled: true }}
+    >
       <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="city-details/[id]" />
     </Stack>
   );
 };
