@@ -1,10 +1,17 @@
-import { Text, View } from "react-native";
+import { Box } from "@/src/components/box";
+import { Text } from "@/src/components/text";
+import { useAppTheme } from "@/src/theme/useAppTheme";
 
 const HomeScreen = () => {
+  // Por meio do useTheme posso acessar os valores do meu Design System definido no THEME
+  const { colors, spacing, textVariants } = useAppTheme();
+
   return (
-    <View>
-      <Text>Home Screen</Text>
-    </View>
+    <Box>
+      <Text>Cor principal: {colors.cardPrimaryBackground}</Text>
+      <Text>Spacing Large: {spacing.xl}</Text>
+      <Text>Tamanho da fonte Header: {textVariants.header.fontSize}</Text>
+    </Box>
   );
 };
 

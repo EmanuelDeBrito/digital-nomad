@@ -1,3 +1,5 @@
+import theme from "@/src/theme/theme";
+import { ThemeProvider } from "@shopify/restyle";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 
@@ -7,15 +9,17 @@ export const unstable_settings = {
 
 const RootLayout = () => {
   return (
-    <Stack>
-      <Stack.Screen name="(protected)" options={{ headerShown: false }} />
-      <Stack.Screen name="sign-in" />
-      <Stack.Screen
-        name="modal"
-        options={{ presentation: "modal", title: "Modal" }}
-      />
-      <StatusBar style="auto" />
-    </Stack>
+    <ThemeProvider theme={theme}>
+      <Stack>
+        <Stack.Screen name="(protected)" options={{ headerShown: false }} />
+        <Stack.Screen name="sign-in" />
+        <Stack.Screen
+          name="modal"
+          options={{ presentation: "modal", title: "Modal" }}
+        />
+        <StatusBar style="auto" />
+      </Stack>
+    </ThemeProvider>
   );
 };
 
