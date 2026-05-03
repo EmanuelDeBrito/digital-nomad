@@ -1,16 +1,17 @@
 import { Box } from "@/src/components/box";
-import { Text } from "@/src/components/text";
-import { useAppTheme } from "@/src/theme/useAppTheme";
+import { CityCard } from "@/src/components/city-card";
+import { cityPreviewList } from "@/src/data/cities";
+import { CityPreview } from "@/src/types/city";
+import { FlatList, ListRenderItemInfo } from "react-native";
 
 const HomeScreen = () => {
-  // Por meio do useTheme posso acessar os valores do meu Design System definido no THEME
-  const { colors, spacing, textVariants } = useAppTheme();
+  const renderItem = ({ item }: ListRenderItemInfo<CityPreview>) => {
+    return <CityCard cityPreview={item} />;
+  };
 
   return (
     <Box>
-      <Text>Cor principal: {colors.cardPrimaryBackground}</Text>
-      <Text>Spacing Large: {spacing.xl}</Text>
-      <Text>Tamanho da fonte Header: {textVariants.header.fontSize}</Text>
+      <FlatList data={cityPreviewList} renderItem={renderItem} />
     </Box>
   );
 };
