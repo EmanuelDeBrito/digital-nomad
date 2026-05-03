@@ -1,7 +1,7 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Text, View } from "react-native";
 
-const CityDetailsPage = () => {
+const CityDetailsScreen = () => {
   const router = useRouter();
 
   const { id, name } = useLocalSearchParams();
@@ -17,4 +17,4 @@ const CityDetailsPage = () => {
   );
 };
 
-export default CityDetailsPage;
+export default CityDetailsScreen;
