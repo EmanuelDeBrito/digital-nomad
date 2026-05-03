@@ -1,5 +1,5 @@
-import { Box } from "@/src/components/box";
 import { CityCard } from "@/src/components/city-card";
+import { Container } from "@/src/components/container";
 import { cityPreviewList } from "@/src/data/cities";
 import { CityPreview } from "@/src/types/city";
 import { FlatList, ListRenderItemInfo } from "react-native";
@@ -10,9 +10,9 @@ const HomeScreen = () => {
   };
 
   return (
-    <Box>
+    <Container>
       <FlatList data={cityPreviewList} renderItem={renderItem} />
-    </Box>
+    </Container>
   );
 };
 
