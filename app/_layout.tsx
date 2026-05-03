@@ -10,6 +10,7 @@ export const unstable_settings = {
 
 const RootLayout = () => {
   const [loaded] = useFonts({
+    IcoMoon: require("../assets/icons/icomoon.ttf"),
     PoppinsBlack: require("../assets/fonts/Poppins-Black.ttf"),
     PoppinsBlackItalic: require("../assets/fonts/Poppins-BlackItalic.ttf"),
     PoppinsBold: require("../assets/fonts/Poppins-Bold.ttf"),
@@ -29,6 +30,10 @@ const RootLayout = () => {
     PoppinsThin: require("../assets/fonts/Poppins-Thin.ttf"),
     PoppinsThinItalic: require("../assets/fonts/Poppins-ThinItalic.ttf"),
   });
+
+  if (!loaded) {
+    return null;
+  }
 
   return (
     <ThemeProvider theme={theme}>
