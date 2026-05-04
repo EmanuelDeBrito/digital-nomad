@@ -1,5 +1,6 @@
 import { CityCard } from "@/src/components/city-card";
 import { Container } from "@/src/components/container";
+import { CityFilter } from "@/src/containers/city-filter";
 import { cityPreviewList } from "@/src/data/cities";
 import { useAppTheme } from "@/src/theme/useAppTheme";
 import { CityPreview } from "@/src/types/city";
@@ -32,6 +33,7 @@ const HomeScreen = () => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
+        ListHeaderComponent={<CityFilter />}
       />
     </Container>
   );
