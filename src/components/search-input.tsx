@@ -17,6 +17,12 @@ export const SearchInput = ({
   const { colors, textVariants } = useAppTheme();
   const [isFocused, setIsFocused] = useState(false);
 
+  const handlePressIconButton = () => {
+    if (value!.length > 0) {
+      onChangeText?.("");
+    }
+  };
+
   return (
     <Box
       {...boxStyles}
@@ -37,7 +43,10 @@ export const SearchInput = ({
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       />
-      <IconButton iconName="Search-outline" onPress={() => {}} />
+      <IconButton
+        iconName={value!.length > 0 ? "Close" : "Search-outline"}
+        onPress={handlePressIconButton}
+      />
     </Box>
   );
 };

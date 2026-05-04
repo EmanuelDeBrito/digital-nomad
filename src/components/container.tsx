@@ -6,7 +6,12 @@ export const Container = ({
   ...boxProps
 }: PropsWithChildren & BoxProps) => {
   return (
-    <Box backgroundColor="background" paddingHorizontal="padding" {...boxProps}>
+    <Box
+      flex={1}
+      paddingHorizontal="padding"
+      backgroundColor="background"
+      {...boxProps}
+    >
       {children}
     </Box>
   );
