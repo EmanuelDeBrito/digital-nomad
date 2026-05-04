@@ -73,7 +73,7 @@ const theme = createTheme({
       lineHeight: 18,
     },
   },
-  borderRadius: {
+  borderRadii: {
     default: 16,
   },
 });
