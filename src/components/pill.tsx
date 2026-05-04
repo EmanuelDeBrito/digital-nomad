@@ -1,3 +1,4 @@
+import { Pressable, PressableProps } from "react-native";
 import { IconName } from "../types/icon-name";
 import { Box, BoxProps } from "./box";
 import { Icon } from "./icon";
@@ -7,14 +8,17 @@ export type PillProps = {
   iconName: IconName;
   label: string;
   active: boolean;
+  onPress?: PressableProps["onPress"];
 };
 
-export const Pill = ({ iconName, label, active }: PillProps) => {
+export const Pill = ({ iconName, label, active, onPress }: PillProps) => {
   return (
-    <Box {...boxStyles} backgroundColor={active ? "gray1" : "transparent"}>
-      <Icon name={iconName} size={16} color={active ? "primary" : "gray2"} />
-      <Text variant="text12">{label}</Text>
-    </Box>
+    <Pressable onPress={onPress}>
+      <Box {...boxStyles} backgroundColor={active ? "gray1" : "transparent"}>
+        <Icon name={iconName} size={16} color={active ? "primary" : "gray2"} />
+        <Text variant="text12">{label}</Text>
+      </Box>
+    </Pressable>
   );
 };
 

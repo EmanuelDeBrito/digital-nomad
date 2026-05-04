@@ -4,14 +4,19 @@ import { Pill, PillProps } from "./pill";
 
 type CategoryPillProps = {
   category: Category;
-} & Pick<PillProps, "active">;
+} & Pick<PillProps, "active" | "onPress">;
 
-export const CategoryPill = ({ category, active }: CategoryPillProps) => {
+export const CategoryPill = ({
+  category,
+  active,
+  onPress,
+}: CategoryPillProps) => {
   return (
     <Pill
       iconName={categoryIconMap[category.code]}
       label={category.name}
       active={active}
+      onPress={onPress}
     />
   );
 };
