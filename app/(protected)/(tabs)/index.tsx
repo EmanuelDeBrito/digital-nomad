@@ -1,6 +1,7 @@
 import { CityCard } from "@/src/components/city-card";
 import { Container } from "@/src/components/container";
 import { CityFilter } from "@/src/containers/city-filter";
+import { categories } from "@/src/data/categories";
 import { cityPreviewList } from "@/src/data/cities";
 import { useAppTheme } from "@/src/theme/useAppTheme";
 import { CityPreview } from "@/src/types/city";
@@ -26,14 +27,14 @@ const HomeScreen = () => {
         ref={flatListRef}
         contentContainerStyle={{
           gap: spacing.padding,
-          paddingTop: top,
+          paddingTop: top + 10,
           paddingBottom: spacing.padding,
         }}
         data={cityPreviewList}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={<CityFilter />}
+        ListHeaderComponent={<CityFilter categories={categories} />}
       />
     </Container>
   );

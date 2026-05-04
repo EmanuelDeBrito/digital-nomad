@@ -44,8 +44,8 @@ const RootLayout = () => {
           name="modal"
           options={{ presentation: "modal", title: "Modal" }}
         />
-        <StatusBar style="auto" />
       </Stack>
+      <StatusBar style="light" />
     </ThemeProvider>
   );
 };

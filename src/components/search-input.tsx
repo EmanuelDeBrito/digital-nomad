@@ -48,6 +48,7 @@ const boxStyles: BoxProps = {
   alignItems: "center",
   height: 70,
   padding: "s8",
+  paddingLeft: "s16",
   backgroundColor: "gray1",
   borderWidth: 2,
   borderRadius: "rounded",
