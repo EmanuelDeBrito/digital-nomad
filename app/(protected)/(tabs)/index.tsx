@@ -26,7 +26,10 @@ const HomeScreen = () => {
   const debouncedCityName = useDebounce(cityName);
 
   // Filter Function - Return mock data
-  const { cityPreviewList } = useCities(debouncedCityName, selectedCategoryId);
+  const { cityPreviewList } = useCities({
+    cityName: debouncedCityName,
+    categoryId: selectedCategoryId,
+  });
 
   const flatListRef = useRef(null);
   useScrollToTop(flatListRef);
