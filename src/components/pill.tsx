@@ -11,6 +11,16 @@ export type PillProps = {
   onPress?: PressableProps["onPress"];
 };
 
+/**
+ * A altura da Pill é a soma do padding vertical + tamanho do icone + tamanho da borda
+ * - Padding Vertical ---> 8 + 8 = 16
+ * - Tamanho do Icon ---> 16
+ * - Tamanho da Borda ---> 2 + 2 = 4
+ * - Soma ---> 36
+ * Essa altura é usada para ajustar o margin-top da lista de pilhas na tela de city-details
+ */
+export const PILL_HEIGHT = 36;
+
 export const Pill = ({ iconName, label, active, onPress }: PillProps) => {
   return (
     <Pressable onPress={onPress}>
