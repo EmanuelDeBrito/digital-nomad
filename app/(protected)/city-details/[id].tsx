@@ -1,19 +1,24 @@
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { Text, View } from "react-native";
+import { Container } from "@/src/components/container";
+import { Text } from "@/src/components/text";
+import { CityDetailsHeader } from "@/src/containers/city-details-header";
+import { CityDetailsInfo } from "@/src/containers/city-details-info";
+import { CityDetailsMap } from "@/src/containers/city-details-map";
+import { CityDetailsRelatedCities } from "@/src/containers/city-details-related-cities";
+import { CityDetailsTouristAttractions } from "@/src/containers/city-details-tourist-attractions";
+import { useLocalSearchParams } from "expo-router";
 
 const CityDetailsScreen = () => {
-  const router = useRouter();
-
-  const { id, name } = useLocalSearchParams();
+  const { id } = useLocalSearchParams();
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>
-        City Details Page - {id} {name}
-      </Text>
-
-      <Text onPress={() => router.back()}>Voltar</Text>
-    </View>
+    <Container>
+      <Text>Cidade - {id}</Text>
+      <CityDetailsHeader />
+      <CityDetailsInfo />
+      <CityDetailsTouristAttractions />
+      <CityDetailsMap />
+      <CityDetailsRelatedCities />
+    </Container>
   );
 };
 
