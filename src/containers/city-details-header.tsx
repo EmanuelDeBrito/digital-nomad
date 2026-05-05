@@ -1,6 +1,7 @@
 import { router } from "expo-router";
 import { ImageBackground, ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { BlackOpacity } from "../components/black-opacity";
 import { Box } from "../components/box";
 import { CategoryPill } from "../components/category-pill";
 import { Icon } from "../components/icon";
@@ -21,9 +22,10 @@ export const CityDetailsHeader = ({
     <Box>
       <ImageBackground
         imageStyle={{ borderBottomRightRadius: 50 }}
-        style={{ width: "100%", height: 220 }}
+        style={{ width: "100%", height: 250 }}
         source={coverImage}
       >
+        <BlackOpacity />
         <Box
           flexDirection="row"
           justifyContent="space-between"
