@@ -1,7 +1,9 @@
 import { Box } from "@/src/components/box";
 import { Container } from "@/src/components/container";
+import { Divider } from "@/src/components/divider";
 import { Text } from "@/src/components/text";
 import { CityDetailsHeader } from "@/src/containers/city-details-header";
+import { CityDetailsInfo } from "@/src/containers/city-details-info";
 import { useCity } from "@/src/hooks/useCity";
 import { useLocalSearchParams } from "expo-router";
 
@@ -25,6 +27,12 @@ const CityDetailsScreen = () => {
         coverImage={city.coverImage}
         categories={city.categories}
       />
+      <CityDetailsInfo
+        name={city.name}
+        country={city.country}
+        description={city.description}
+      />
+      <Divider paddingHorizontal="padding" />
     </Container>
   );
 };

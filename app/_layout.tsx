@@ -37,7 +37,11 @@ const RootLayout = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Stack>
+      <Stack
+        screenOptions={{
+          contentStyle: { backgroundColor: theme.colors.background },
+        }}
+      >
         <Stack.Screen name="(protected)" options={{ headerShown: false }} />
         <Stack.Screen name="sign-in" />
         <Stack.Screen
