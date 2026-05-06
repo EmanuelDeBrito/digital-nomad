@@ -4,6 +4,7 @@ import { Divider } from "@/src/components/divider";
 import { Text } from "@/src/components/text";
 import { CityDetailsHeader } from "@/src/containers/city-details-header";
 import { CityDetailsInfo } from "@/src/containers/city-details-info";
+import { CityDetailsTouristAttractions } from "@/src/containers/city-details-tourist-attractions";
 import { useCity } from "@/src/hooks/useCity";
 import { useLocalSearchParams } from "expo-router";
 
@@ -21,7 +22,7 @@ const CityDetailsScreen = () => {
   }
 
   return (
-    <Container style={{ paddingHorizontal: 0 }}>
+    <Container scrollable style={{ paddingHorizontal: 0 }}>
       <CityDetailsHeader
         id={city.id}
         coverImage={city.coverImage}
@@ -31,6 +32,10 @@ const CityDetailsScreen = () => {
         name={city.name}
         country={city.country}
         description={city.description}
+      />
+      <Divider paddingHorizontal="padding" />
+      <CityDetailsTouristAttractions
+        touristAttractions={city.touristAttractions}
       />
       <Divider paddingHorizontal="padding" />
     </Container>
