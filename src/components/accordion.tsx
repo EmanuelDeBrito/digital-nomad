@@ -1,5 +1,10 @@
-import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
+import Animated, {
+  SharedValue,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 import theme from "../theme/theme";
 import { Box } from "./box";
 import { Icon } from "./icon";
@@ -11,17 +16,17 @@ type AccordionProps = {
 };
 
 export const Accordion = ({ title, description }: AccordionProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const isOpen = useSharedValue(false);
 
-  const handleSetIsOpen = () => {
-    setIsOpen(!isOpen);
+  const handleOpenAccordionPress = () => {
+    isOpen.value = !isOpen.value;
   };
 
   return (
-    <Pressable onPress={handleSetIsOpen}>
+    <Pressable onPress={handleOpenAccordionPress}>
       <Box>
         <AccordionHeader title={title} />
-        {isOpen && <AccordionBody description={description} />}
+        <AccordionBody description={description} isOpen={isOpen} />
       </Box>
     </Pressable>
   );
@@ -38,11 +43,40 @@ const AccordionHeader = ({ title }: { title: string }) => {
   );
 };
 
-const AccordionBody = ({ description }: { description: string }) => {
+const AccordionBody = ({
+  description,
+  isOpen,
+}: {
+  description: string;
+  isOpen: SharedValue<boolean>;
+}) => {
+  const height = useSharedValue(0);
+
+  // const derivedHeight = useDerivedValue(() =>
+  //   withTiming(height.value * Number(isOpen.value), {
+  //     duration: 500,
+  //   }),
+  // );
+
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      height: withTiming(height.value * Number(isOpen.value), {
+        duration: 500,
+      }),
+    };
+  });
+
   return (
-    <View style={styles.body}>
-      <Text variant="text12">{description}</Text>
-    </View>
+    <Animated.View style={[animatedStyles, { overflow: "hidden" }]}>
+      <View
+        style={styles.body}
+        onLayout={(event) => {
+          height.value = event.nativeEvent.layout.height;
+        }}
+      >
+        <Text variant="text12">{description}</Text>
+      </View>
+    </Animated.View>
   );
 };
 
@@ -57,6 +91,7 @@ const styles = StyleSheet.create({
     borderRadius: theme.borderRadii.default,
   },
   body: {
+    position: "absolute",
     paddingHorizontal: 16,
     paddingBottom: 16,
     backgroundColor: theme.colors.gray1,
