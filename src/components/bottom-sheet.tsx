@@ -5,6 +5,7 @@ import Animated, {
   useAnimatedStyle,
   useDerivedValue,
   useSharedValue,
+  withDelay,
   withTiming,
 } from "react-native-reanimated";
 
@@ -16,7 +17,7 @@ type BottomSheetProps = {
 
 export const BottomSheet = ({
   isOpen,
-  duration = 600,
+  duration = 2000,
   children,
   onPress,
 }: PropsWithChildren<BottomSheetProps>) => {
@@ -26,7 +27,10 @@ export const BottomSheet = ({
   );
 
   const bottomSheetAnimatedStyles = useAnimatedStyle(() => ({
-    zIndex: isOpen.value ? 1 : -1,
+    opacity: 1 - progress.value,
+    zIndex: isOpen.value
+      ? 1
+      : withDelay(duration, withTiming(-1, { duration: 0 })),
   }));
 
   const contentAnimatedStyles = useAnimatedStyle(() => ({
@@ -58,7 +62,7 @@ export const BottomSheet = ({
 const styles = StyleSheet.create({
   backdrop: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
   },
   content: {
     position: "absolute",
