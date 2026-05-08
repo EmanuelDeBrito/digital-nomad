@@ -1,3 +1,4 @@
+import { BottomSheet } from "@/src/components/bottom-sheet";
 import { Box } from "@/src/components/box";
 import { Container } from "@/src/components/container";
 import { Divider } from "@/src/components/divider";
@@ -8,6 +9,9 @@ import { CityDetailsMap } from "@/src/containers/city-details-map";
 import { CityDetailsTouristAttractions } from "@/src/containers/city-details-tourist-attractions";
 import { useCity } from "@/src/hooks/useCity";
 import { useLocalSearchParams } from "expo-router";
+import { Pressable } from "react-native";
+import MapView from "react-native-maps";
+import { useSharedValue } from "react-native-reanimated";
 
 const CityDetailsScreen = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -22,26 +26,50 @@ const CityDetailsScreen = () => {
     );
   }
 
+  const bottomSheetIsOpen = useSharedValue(false);
+
+  const toggleBottomSheet = () => {
+    bottomSheetIsOpen.value = !bottomSheetIsOpen.value;
+  };
+
   return (
-    <Container scrollable style={{ paddingHorizontal: 0 }}>
-      <CityDetailsHeader
-        id={city.id}
-        coverImage={city.coverImage}
-        categories={city.categories}
-      />
-      <CityDetailsInfo
-        name={city.name}
-        country={city.country}
-        description={city.description}
-      />
-      <Divider paddingHorizontal="padding" />
-      <CityDetailsTouristAttractions
-        touristAttractions={city.touristAttractions}
-      />
-      <Divider paddingHorizontal="padding" />
-      <CityDetailsMap location={city.location} />
-      <Divider paddingHorizontal="padding" />
-    </Container>
+    <>
+      <Container scrollable style={{ paddingHorizontal: 0 }}>
+        <CityDetailsHeader
+          id={city.id}
+          coverImage={city.coverImage}
+          categories={city.categories}
+        />
+        <CityDetailsInfo
+          name={city.name}
+          country={city.country}
+          description={city.description}
+        />
+        <Divider paddingHorizontal="padding" />
+        <CityDetailsTouristAttractions
+          touristAttractions={city.touristAttractions}
+        />
+        <Divider paddingHorizontal="padding" />
+        <Pressable onPress={toggleBottomSheet}>
+          <CityDetailsMap location={city.location} />
+        </Pressable>
+        <Divider paddingHorizontal="padding" />
+      </Container>
+      <BottomSheet isOpen={bottomSheetIsOpen} onPress={toggleBottomSheet}>
+        <MapView
+          style={{
+            width: "100%",
+            height: 500,
+          }}
+          initialRegion={{
+            latitude: city.location.latitude,
+            longitude: city.location.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
+      </BottomSheet>
+    </>
   );
 };
 
