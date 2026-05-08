@@ -4,6 +4,7 @@ import { Divider } from "@/src/components/divider";
 import { Text } from "@/src/components/text";
 import { CityDetailsHeader } from "@/src/containers/city-details-header";
 import { CityDetailsInfo } from "@/src/containers/city-details-info";
+import { CityDetailsMap } from "@/src/containers/city-details-map";
 import { CityDetailsTouristAttractions } from "@/src/containers/city-details-tourist-attractions";
 import { useCity } from "@/src/hooks/useCity";
 import { useLocalSearchParams } from "expo-router";
@@ -37,6 +38,8 @@ const CityDetailsScreen = () => {
       <CityDetailsTouristAttractions
         touristAttractions={city.touristAttractions}
       />
+      <Divider paddingHorizontal="padding" />
+      <CityDetailsMap location={city.location} />
       <Divider paddingHorizontal="padding" />
     </Container>
   );
