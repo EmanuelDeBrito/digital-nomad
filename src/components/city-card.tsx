@@ -1,5 +1,5 @@
 import { Link } from "expo-router";
-import { ImageBackground, Pressable } from "react-native";
+import { ImageBackground, ImageBackgroundProps, Pressable } from "react-native";
 import { useAppTheme } from "../theme/useAppTheme";
 import { CityPreview } from "../types/city";
 import { BlackOpacity } from "./black-opacity";
@@ -9,9 +9,10 @@ import { Text } from "./text";
 
 type CityCardProps = {
   cityPreview: CityPreview;
+  style?: ImageBackgroundProps["style"];
 };
 
-export const CityCard = ({ cityPreview }: CityCardProps) => {
+export const CityCard = ({ cityPreview, style }: CityCardProps) => {
   const { borderRadii } = useAppTheme();
 
   return (
@@ -19,7 +20,7 @@ export const CityCard = ({ cityPreview }: CityCardProps) => {
       <Pressable>
         <ImageBackground
           source={cityPreview.coverImage}
-          style={{ width: "100%", height: 280 }}
+          style={[{ width: "100%", height: 280 }, style]}
           imageStyle={{ borderRadius: borderRadii.default }}
         >
           <BlackOpacity />

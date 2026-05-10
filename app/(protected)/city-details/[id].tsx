@@ -6,6 +6,7 @@ import { BottomSheetMap } from "@/src/containers/bottom-sheet-map";
 import { CityDetailsHeader } from "@/src/containers/city-details-header";
 import { CityDetailsInfo } from "@/src/containers/city-details-info";
 import { CityDetailsMap } from "@/src/containers/city-details-map";
+import { CityDetailsRelatedCities } from "@/src/containers/city-details-related-cities";
 import { CityDetailsTouristAttractions } from "@/src/containers/city-details-tourist-attractions";
 import { useCity } from "@/src/hooks/useCity";
 import { useLocalSearchParams } from "expo-router";
@@ -53,6 +54,7 @@ const CityDetailsScreen = () => {
           <CityDetailsMap location={city.location} />
         </Pressable>
         <Divider paddingHorizontal="padding" />
+        <CityDetailsRelatedCities relatedCitiesIds={city.relatedCitiesIds} />
       </Container>
       <BottomSheetMap
         location={city.location}
