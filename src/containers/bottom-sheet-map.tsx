@@ -1,0 +1,41 @@
+import { useWindowDimensions } from "react-native";
+import MapView from "react-native-maps";
+import { BottomSheet, BottomSheetProps } from "../components/bottom-sheet";
+import { Box } from "../components/box";
+import { IconButton } from "../components/icon-button";
+import { useAppTheme } from "../theme/useAppTheme";
+import { City } from "../types/city";
+
+type BottomSheetMapProps = Omit<BottomSheetProps, "children"> & {
+  location: City["location"];
+};
+
+export const BottomSheetMap = ({
+  location,
+  isOpen,
+  onPress,
+  duration,
+}: BottomSheetMapProps) => {
+  const { height } = useWindowDimensions();
+  const { spacing } = useAppTheme();
+
+  return (
+    <BottomSheet isOpen={isOpen} duration={duration} onPress={onPress}>
+      <MapView
+        style={{
+          width: "100%",
+          height: height * 0.6,
+        }}
+        initialRegion={{
+          latitude: location.latitude,
+          longitude: location.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.2,
+        }}
+      />
+      <Box position="absolute" top={spacing.padding} right={spacing.padding}>
+        <IconButton iconName="Close" onPress={onPress} />
+      </Box>
+    </BottomSheet>
+  );
+};

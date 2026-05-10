@@ -9,7 +9,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-type BottomSheetProps = {
+export type BottomSheetProps = {
   isOpen: SharedValue<boolean>;
   duration?: number;
   onPress: () => void;
