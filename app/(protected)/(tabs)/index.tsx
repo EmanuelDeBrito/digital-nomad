@@ -8,7 +8,8 @@ import { useAppTheme } from "@/src/theme/useAppTheme";
 import { CityPreview } from "@/src/types/city";
 import { useScrollToTop } from "@react-navigation/native";
 import { useRef, useState } from "react";
-import { FlatList, ListRenderItemInfo } from "react-native";
+import { ListRenderItemInfo } from "react-native";
+import Animated, { FadingTransition } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const HomeScreen = () => {
@@ -40,8 +41,9 @@ const HomeScreen = () => {
 
   return (
     <Container>
-      <FlatList
+      <Animated.FlatList
         ref={flatListRef}
+        itemLayoutAnimation={FadingTransition.duration(500)}
         contentContainerStyle={{
           gap: spacing.padding,
           paddingTop: top + 10,
