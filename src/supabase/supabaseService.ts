@@ -1,8 +1,25 @@
+import { CityPreview } from "../types/city";
 import { supabase } from "./supabase";
 
-const getAllCities = async () => {
-  const cities = await supabase.from("cities").select("*");
-  console.log({ cities });
+const storageUrl = process.env.EXPO_PUBLIC_SUPABASE_STORAGE_URL;
+
+const getAllCities = async (): Promise<CityPreview[]> => {
+  try {
+    const { data: cities } = await supabase.from("cities").select("*");
+
+    if (!cities) {
+      throw new Error("Cities not available, try again later");
+    }
+
+    return cities.map((city) => ({
+      id: city.id,
+      name: city.name,
+      country: city.country,
+      coverImage: `${storageUrl}/${city.cover_image}`,
+    }));
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const supabaseService = {

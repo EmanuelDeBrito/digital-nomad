@@ -4,11 +4,10 @@ import { CityFilter } from "@/src/containers/city-filter";
 import { categories } from "@/src/data/categories";
 import { useCities } from "@/src/hooks/useCities";
 import { useDebounce } from "@/src/hooks/useDebounce";
-import { supabaseService } from "@/src/supabase/supabaseService";
 import { useAppTheme } from "@/src/theme/useAppTheme";
 import { CityPreview } from "@/src/types/city";
 import { useScrollToTop } from "@react-navigation/native";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { ListRenderItemInfo } from "react-native";
 import Animated, { FadingTransition } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -35,13 +34,6 @@ const HomeScreen = () => {
 
   const flatListRef = useRef(null);
   useScrollToTop(flatListRef);
-
-  useEffect(() => {
-    const getCities = async () => {
-      await supabaseService.getAllCities();
-    };
-    getCities();
-  }, []);
 
   const renderItem = ({ item }: ListRenderItemInfo<CityPreview>) => {
     return <CityCard cityPreview={item} />;

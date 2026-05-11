@@ -19,7 +19,11 @@ export const CityCard = ({ cityPreview, style }: CityCardProps) => {
     <Link href={`/(protected)/city-details/${cityPreview.id}`} asChild>
       <Pressable>
         <ImageBackground
-          source={cityPreview.coverImage}
+          source={
+            typeof cityPreview.coverImage === "number"
+              ? cityPreview.coverImage
+              : { uri: cityPreview.coverImage }
+          }
           style={[{ width: "100%", height: 280 }, style]}
           imageStyle={{ borderRadius: borderRadii.default }}
         >

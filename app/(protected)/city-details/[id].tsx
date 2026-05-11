@@ -20,8 +20,13 @@ const CityDetailsScreen = () => {
 
   if (!city) {
     return (
-      <Box flex={1} justifyContent="center" alignItems="center">
-        <Text variant="title28">Cidade não encontrada!</Text>
+      <Box
+        flex={1}
+        justifyContent="center"
+        alignItems="center"
+        backgroundColor="background"
+      >
+        <Text variant="title22">Cidade não encontrada!</Text>
       </Box>
     );
   }
