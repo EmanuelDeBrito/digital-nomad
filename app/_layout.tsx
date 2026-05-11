@@ -8,6 +8,10 @@ export const unstable_settings = {
   anchor: "(tabs)",
 };
 
+if (__DEV__) {
+  require("../ReactotronConfig");
+}
+
 const RootLayout = () => {
   const [loaded] = useFonts({
     IcoMoon: require("../assets/icons/icomoon.ttf"),
