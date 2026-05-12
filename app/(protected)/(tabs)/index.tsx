@@ -1,7 +1,7 @@
 import { CityCard } from "@/src/components/city-card";
 import { Container } from "@/src/components/container";
 import { CityFilter } from "@/src/containers/city-filter";
-import { categories } from "@/src/data/categories";
+import { useCategories } from "@/src/hooks/useCategories";
 import { useCities } from "@/src/hooks/useCities";
 import { useDebounce } from "@/src/hooks/useDebounce";
 import { useAppTheme } from "@/src/theme/useAppTheme";
@@ -31,6 +31,8 @@ const HomeScreen = () => {
     cityName: debouncedCityName,
     categoryId: selectedCategoryId,
   });
+
+  const { categories } = useCategories();
 
   const flatListRef = useRef(null);
   useScrollToTop(flatListRef);

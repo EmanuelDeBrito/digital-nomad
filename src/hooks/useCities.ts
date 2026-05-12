@@ -19,11 +19,11 @@ export const useCities = ({
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      const cities = await supabaseService.getAllCities({
+      const citiesList = await supabaseService.getAllCities({
         cityName,
         categoryId,
       });
-      setCities(cities);
+      setCities(citiesList);
     } catch (error) {
       setError(error);
     } finally {
