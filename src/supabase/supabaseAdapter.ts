@@ -1,7 +1,7 @@
 // Este arquivo tem como função transformar os dados que vêm da API para os types do nosso projeto
 
 import { Category, CategoryCode } from "../types/category";
-import { City, TouristAttraction } from "../types/city";
+import { City, CityPreview, TouristAttraction } from "../types/city";
 import { Database } from "./types";
 
 export const storageUrl = process.env.EXPO_PUBLIC_SUPABASE_STORAGE_URL;
@@ -14,7 +14,14 @@ type CategoryRow = Database["public"]["Tables"]["categories"]["Row"];
 type TouristAttractionRow =
   Database["public"]["Tables"]["tourist_attractions"]["Row"];
 
-export const toCity = (data: CitiesWithFullInfoRow): City => {
+type CityPreviewRow = {
+  id: string | null;
+  name: string | null;
+  country: string | null;
+  cover_image: string | null;
+};
+
+const toCity = (data: CitiesWithFullInfoRow): City => {
   const touristAttractions = data.tourist_attractions as TouristAttractionRow[];
   const categories = data.categories as CategoryRow[];
 
@@ -33,7 +40,16 @@ export const toCity = (data: CitiesWithFullInfoRow): City => {
   };
 };
 
-export const toCategory = (row: CategoryRow): Category => {
+const toCityPreview = (row: CityPreviewRow): CityPreview => {
+  return {
+    id: row.id,
+    name: row.name,
+    country: row.country,
+    coverImage: `${storageUrl}/${row.cover_image}`,
+  } as CityPreview;
+};
+
+const toCategory = (row: CategoryRow): Category => {
   return {
     id: row.id,
     name: row.name,
@@ -42,9 +58,7 @@ export const toCategory = (row: CategoryRow): Category => {
   };
 };
 
-export const toTouristAttraction = (
-  row: TouristAttractionRow,
-): TouristAttraction => {
+const toTouristAttraction = (row: TouristAttractionRow): TouristAttraction => {
   return {
     id: row.id,
     name: row.name,
@@ -55,4 +69,5 @@ export const toTouristAttraction = (
 
 export const supabaseAdapter = {
   toCity,
+  toCityPreview,
 };

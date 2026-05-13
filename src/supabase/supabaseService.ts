@@ -1,7 +1,7 @@
 import { Category, CategoryCode } from "../types/category";
 import { City, CityPreview } from "../types/city";
 import { supabase } from "./supabase";
-import { storageUrl, supabaseAdapter } from "./supabaseAdapter";
+import { supabaseAdapter } from "./supabaseAdapter";
 
 export type GetAllCitiesType = {
   cityName?: string;
@@ -37,15 +37,21 @@ const getAllCities = async ({
       throw new Error("Cities not available, try again later");
     }
 
-    return cities.map(
-      (city) =>
-        ({
-          id: city.id,
-          name: city.name,
-          country: city.country,
-          coverImage: `${storageUrl}/${city.cover_image}`,
-        }) as CityPreview,
-    );
+    return cities.map(supabaseAdapter.toCityPreview);
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getRelatedCities = async (cityId: string): Promise<CityPreview[]> => {
+  try {
+    const { data } = await supabase
+      .from("related_cities")
+      .select("*")
+      .eq("source_city_id", cityId)
+      .throwOnError();
+
+    return data.map(supabaseAdapter.toCityPreview);
   } catch (error) {
     throw error;
   }
@@ -90,6 +96,7 @@ const getCityById = async (cityId: string): Promise<City> => {
 
 export const supabaseService = {
   getAllCities,
+  getRelatedCities,
   getAllCategories,
   getCityById,
 };

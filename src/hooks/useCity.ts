@@ -13,11 +13,6 @@ export const useCity = (cityId: string): UseCityReturn => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<unknown>();
 
-  useEffect(() => {
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const fetchData = async () => {
     try {
       setIsLoading(true);
@@ -29,6 +24,11 @@ export const useCity = (cityId: string): UseCityReturn => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return {
     city: city,
