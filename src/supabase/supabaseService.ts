@@ -1,8 +1,7 @@
 import { Category, CategoryCode } from "../types/category";
-import { CityPreview } from "../types/city";
+import { City, CityPreview } from "../types/city";
 import { supabase } from "./supabase";
-
-const storageUrl = process.env.EXPO_PUBLIC_SUPABASE_STORAGE_URL;
+import { storageUrl, supabaseAdapter } from "./supabaseAdapter";
 
 export type GetAllCitiesType = {
   cityName?: string;
@@ -71,7 +70,26 @@ const getAllCategories = async (): Promise<Category[]> => {
   }
 };
 
+const getCityById = async (cityId: string): Promise<City> => {
+  try {
+    const { data, error } = await supabase
+      .from("cities_with_full_info")
+      .select("*")
+      .eq("id", cityId)
+      .single();
+
+    if (error) {
+      throw new Error("City not found");
+    }
+
+    return supabaseAdapter.toCity(data);
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const supabaseService = {
   getAllCities,
   getAllCategories,
+  getCityById,
 };

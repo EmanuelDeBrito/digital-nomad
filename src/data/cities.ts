@@ -1,7 +1,7 @@
 import { City, CityPreview } from "../types/city";
 import { categories } from "./categories";
 
-export const cities: City[] = [
+export const cities: Array<City & { relatedCitiesIds: string[] }> = [
   {
     id: "rio-de-janeiro",
     name: "Rio de Janeiro",

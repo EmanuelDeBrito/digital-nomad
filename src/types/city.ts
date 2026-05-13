@@ -15,11 +15,11 @@ export type City = {
   description: string;
   categories: Category[];
   touristAttractions: TouristAttraction[];
-  relatedCitiesIds: string[];
   location: {
     latitude: number;
     longitude: number;
   };
+  // relatedCitiesIds: string[];
 };
 
 export type CityPreview = Pick<City, "id" | "name" | "country" | "coverImage">;

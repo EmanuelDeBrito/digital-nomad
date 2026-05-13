@@ -16,7 +16,13 @@ import { useSharedValue } from "react-native-reanimated";
 const CityDetailsScreen = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
 
-  const city = useCity(id);
+  const { city } = useCity(id);
+
+  const bottomSheetIsOpen = useSharedValue(false);
+
+  const toggleBottomSheet = () => {
+    bottomSheetIsOpen.value = !bottomSheetIsOpen.value;
+  };
 
   if (!city) {
     return (
@@ -30,12 +36,6 @@ const CityDetailsScreen = () => {
       </Box>
     );
   }
-
-  const bottomSheetIsOpen = useSharedValue(false);
-
-  const toggleBottomSheet = () => {
-    bottomSheetIsOpen.value = !bottomSheetIsOpen.value;
-  };
 
   return (
     <>
@@ -59,7 +59,7 @@ const CityDetailsScreen = () => {
           <CityDetailsMap location={city.location} />
         </Pressable>
         <Divider paddingHorizontal="padding" />
-        <CityDetailsRelatedCities relatedCitiesIds={city.relatedCitiesIds} />
+        <CityDetailsRelatedCities id={city.id} />
       </Container>
       <BottomSheetMap
         location={city.location}

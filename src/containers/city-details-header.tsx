@@ -23,7 +23,9 @@ export const CityDetailsHeader = ({
       <ImageBackground
         imageStyle={{ borderBottomRightRadius: 50 }}
         style={{ width: "100%", height: 250 }}
-        source={coverImage}
+        source={
+          typeof coverImage === "number" ? coverImage : { uri: coverImage }
+        }
       >
         <BlackOpacity />
         <Box

@@ -3,20 +3,20 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Box } from "../components/box";
 import { CityCard } from "../components/city-card";
 import { Text } from "../components/text";
-import { useRelatedCities } from "../hooks/useRelatedCitites";
+import { useRelatedCities } from "../hooks/useRelatedCities";
 import { useAppTheme } from "../theme/useAppTheme";
 import { City } from "../types/city";
 
-type CityDetailsRelatedCitiesProps = Pick<City, "relatedCitiesIds">;
+type CityDetailsRelatedCitiesProps = Pick<City, "id">;
 
 export const CityDetailsRelatedCities = ({
-  relatedCitiesIds,
+  id,
 }: CityDetailsRelatedCitiesProps) => {
   const { width } = useWindowDimensions();
   const { bottom } = useSafeAreaInsets();
   const { spacing } = useAppTheme();
 
-  const relatedCities = useRelatedCities(relatedCitiesIds);
+  const relatedCities = useRelatedCities(id);
   const cardWidth = width * 0.7;
   const cardHeight = width * 0.6;
   return (
