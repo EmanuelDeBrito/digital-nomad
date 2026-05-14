@@ -27,13 +27,13 @@ const HomeScreen = () => {
   const debouncedCityName = useDebounce(cityName);
 
   // Filter Function - Return supabase data
-  const { cityPreviewList } = useCities({
+  const { data: cityPreviewList } = useCities({
     cityName: debouncedCityName,
     categoryId: selectedCategoryId,
   });
 
   // Buscando as categorias do supabase
-  const { categories } = useCategories();
+  const { data: categories } = useCategories();
 
   const flatListRef = useRef(null);
   useScrollToTop(flatListRef);

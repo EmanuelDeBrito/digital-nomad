@@ -16,7 +16,7 @@ import { useSharedValue } from "react-native-reanimated";
 const CityDetailsScreen = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
 
-  const { city } = useCity(id);
+  const { data: city } = useCity(id);
 
   const bottomSheetIsOpen = useSharedValue(false);
 
