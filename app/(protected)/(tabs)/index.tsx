@@ -1,11 +1,12 @@
 import { CityCard } from "@/src/components/city-card";
 import { Container } from "@/src/components/container";
 import { CityFilter } from "@/src/containers/city-filter";
+import { CityPreview } from "@/src/domain/city/city";
+import { useCities } from "@/src/domain/city/operations/useCities";
 import { useCategories } from "@/src/hooks/useCategories";
-import { useCities } from "@/src/hooks/useCities";
 import { useDebounce } from "@/src/hooks/useDebounce";
+import { supabaseCityRepository } from "@/src/supabase/supabaseService";
 import { useAppTheme } from "@/src/theme/useAppTheme";
-import { CityPreview } from "@/src/types/city";
 import { useScrollToTop } from "@react-navigation/native";
 import { useRef, useState } from "react";
 import { ListRenderItemInfo } from "react-native";
@@ -27,7 +28,7 @@ const HomeScreen = () => {
   const debouncedCityName = useDebounce(cityName);
 
   // Filter Function - Return supabase data
-  const { data: cityPreviewList } = useCities({
+  const { data: cityPreviewList } = useCities(supabaseCityRepository, {
     cityName: debouncedCityName,
     categoryId: selectedCategoryId,
   });
@@ -58,7 +59,7 @@ const HomeScreen = () => {
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <CityFilter
-            categories={categories}
+            categories={[]}
             cityName={cityName}
             selectedCategoryId={selectedCategoryId}
             onChangeCityName={setCityName}

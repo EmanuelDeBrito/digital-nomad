@@ -1,12 +1,11 @@
-import { Category, CategoryCode } from "../types/category";
-import { City, CityPreview } from "../types/city";
+import { Category, CategoryCode } from "../domain/category/category";
+import { City, CityPreview } from "../domain/city/city";
+import {
+  CityRepository,
+  GetAllCitiesType,
+} from "../domain/city/cityRepository";
 import { supabase } from "./supabase";
 import { supabaseAdapter } from "./supabaseAdapter";
-
-export type GetAllCitiesType = {
-  cityName?: string;
-  categoryId?: string | null;
-};
 
 const getAllCities = async ({
   cityName,
@@ -94,9 +93,8 @@ const getCityById = async (cityId: string): Promise<City> => {
   }
 };
 
-export const supabaseService = {
+export const supabaseCityRepository: CityRepository = {
   getAllCities,
   getRelatedCities,
-  getAllCategories,
   getCityById,
 };

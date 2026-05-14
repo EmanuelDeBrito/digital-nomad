@@ -1,6 +1,6 @@
 // Este arquivo tem como função transformar os dados que vêm da API para os types do nosso projeto
 
-import { Category, CategoryCode } from "../types/category";
+import { Category, CategoryCode } from "../domain/category/category";
 import { City, CityPreview, TouristAttraction } from "../types/city";
 import { Database } from "./types";
 
