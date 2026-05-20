@@ -1,12 +1,12 @@
 import { useFetchData } from "@/src/hooks/useFetchData";
-import { CityRepository, GetAllCitiesType } from "../cityRepository";
+import { useRepositoryContext } from "@/src/infra/repositories/repository-provider";
+import { GetAllCitiesType } from "../cityRepository";
 
-export const useCities = (
-  repository: CityRepository,
-  filters: GetAllCitiesType,
-) => {
+export const useCities = (filters: GetAllCitiesType) => {
+  const { city } = useRepositoryContext();
+
   return useFetchData(
-    () => repository.getAllCities(filters),
+    () => city.getAllCities(filters),
     [filters.cityName, filters.categoryId],
   );
 };

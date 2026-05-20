@@ -5,7 +5,6 @@ import { CityPreview } from "@/src/domain/city/city";
 import { useCities } from "@/src/domain/city/operations/useCities";
 import { useCategories } from "@/src/hooks/useCategories";
 import { useDebounce } from "@/src/hooks/useDebounce";
-import { supabaseCityRepository } from "@/src/supabase/supabaseService";
 import { useAppTheme } from "@/src/theme/useAppTheme";
 import { useScrollToTop } from "@react-navigation/native";
 import { useRef, useState } from "react";
@@ -28,7 +27,7 @@ const HomeScreen = () => {
   const debouncedCityName = useDebounce(cityName);
 
   // Filter Function - Return supabase data
-  const { data: cityPreviewList } = useCities(supabaseCityRepository, {
+  const { data: cityPreviewList } = useCities({
     cityName: debouncedCityName,
     categoryId: selectedCategoryId,
   });
