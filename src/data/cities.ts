@@ -1,4 +1,4 @@
-import { City, CityPreview } from "../types/city";
+import { City, CityPreview } from "../domain/city/city";
 import { categories } from "./categories";
 
 export const cities: Array<City & { relatedCitiesIds: string[] }> = [

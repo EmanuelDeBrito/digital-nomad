@@ -8,7 +8,7 @@ import { CityDetailsInfo } from "@/src/containers/city-details-info";
 import { CityDetailsMap } from "@/src/containers/city-details-map";
 import { CityDetailsRelatedCities } from "@/src/containers/city-details-related-cities";
 import { CityDetailsTouristAttractions } from "@/src/containers/city-details-tourist-attractions";
-import { useCity } from "@/src/hooks/useCity";
+import { useCity } from "@/src/domain/city/operations/useCity";
 import { useLocalSearchParams } from "expo-router";
 import { Pressable } from "react-native";
 import { useSharedValue } from "react-native-reanimated";

@@ -10,14 +10,40 @@ export class InMemoryCityRepository implements CityRepository {
     cityName,
     categoryId,
   }: GetAllCitiesType): Promise<CityPreview[]> {
-    return cities;
+    let cityPreviewList = [...cities];
+
+    if (cityName) {
+      cityPreviewList = cityPreviewList.filter((city) => {
+        return city.name.toLowerCase().includes(cityName.toLowerCase());
+      });
+    }
+
+    if (categoryId) {
+      cityPreviewList = cityPreviewList.filter((city) => {
+        return city.categories.some((category) => category.id === categoryId);
+      });
+    }
+
+    return cityPreviewList;
   }
 
-  getRelatedCities(cityId: string): Promise<CityPreview[]> {
-    throw new Error("Not found");
+  async getRelatedCities(cityId: string): Promise<CityPreview[]> {
+    const city = cities.find((city) => city.id === cityId);
+
+    const relatedCities = cities.filter((item) =>
+      city?.relatedCitiesIds.includes(item.id),
+    );
+
+    return relatedCities;
   }
 
-  getCityById(cityId: string): Promise<City> {
-    throw new Error("Not found");
+  async getCityById(cityId: string): Promise<City> {
+    const city = cities.find((city) => city.id === cityId);
+
+    if (!city) {
+      throw new Error("City not found");
+    }
+
+    return city;
   }
 }
