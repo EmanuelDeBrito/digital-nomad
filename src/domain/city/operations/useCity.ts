@@ -1,8 +1,8 @@
-import { useFetchData } from "@/src/hooks/useFetchData";
+import { useAppQuery } from "@/src/infra/operations/useAppQuery";
 import { useRepositoryContext } from "@/src/infra/repositories/repository-provider";
 
 export const useCity = (cityId: string) => {
   const { city } = useRepositoryContext();
 
-  return useFetchData(() => city.getCityById(cityId));
+  return useAppQuery(() => city.getCityById(cityId));
 };

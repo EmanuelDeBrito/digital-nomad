@@ -1,8 +1,8 @@
-import { useFetchData } from "@/src/hooks/useFetchData";
+import { useAppQuery } from "@/src/infra/operations/useAppQuery";
 import { useRepositoryContext } from "@/src/infra/repositories/repository-provider";
 
 export const useCategories = () => {
   const { category } = useRepositoryContext();
 
-  return useFetchData(() => category.getAllCategories());
+  return useAppQuery(() => category.getAllCategories());
 };

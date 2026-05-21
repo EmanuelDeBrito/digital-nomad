@@ -1,11 +1,11 @@
-import { useFetchData } from "@/src/hooks/useFetchData";
+import { useAppQuery } from "@/src/infra/operations/useAppQuery";
 import { useRepositoryContext } from "@/src/infra/repositories/repository-provider";
 import { GetAllCitiesType } from "../cityRepository";
 
 export const useCities = (filters: GetAllCitiesType) => {
   const { city } = useRepositoryContext();
 
-  return useFetchData(
+  return useAppQuery(
     () => city.getAllCities(filters),
     [filters.cityName, filters.categoryId],
   );
