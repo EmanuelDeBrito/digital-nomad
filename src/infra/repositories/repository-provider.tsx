@@ -12,7 +12,7 @@ export const useRepositoryContext = () => {
 
   if (!context) {
     throw new Error(
-      "Repository Context should be used within a RepositoryProvider",
+      "Repository Context should be used within a Repository Provider",
     );
   }
 

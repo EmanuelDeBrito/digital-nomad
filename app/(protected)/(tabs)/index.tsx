@@ -1,9 +1,9 @@
 import { CityCard } from "@/src/components/city-card";
 import { Container } from "@/src/components/container";
 import { CityFilter } from "@/src/containers/city-filter";
+import { useCategories } from "@/src/domain/category/operations/useCategories";
 import { CityPreview } from "@/src/domain/city/city";
 import { useCities } from "@/src/domain/city/operations/useCities";
-import { useCategories } from "@/src/hooks/useCategories";
 import { useDebounce } from "@/src/hooks/useDebounce";
 import { useAppTheme } from "@/src/theme/useAppTheme";
 import { useScrollToTop } from "@react-navigation/native";
@@ -58,7 +58,7 @@ const HomeScreen = () => {
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <CityFilter
-            categories={[]}
+            categories={categories}
             cityName={cityName}
             selectedCategoryId={selectedCategoryId}
             onChangeCityName={setCityName}

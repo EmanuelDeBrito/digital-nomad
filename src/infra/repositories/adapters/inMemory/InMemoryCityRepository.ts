@@ -1,9 +1,9 @@
-import { cities } from "@/src/data/cities";
 import { City, CityPreview } from "@/src/domain/city/city";
 import {
   CityRepository,
   GetAllCitiesType,
 } from "@/src/domain/city/cityRepository";
+import { cities } from "./data/cities";
 
 export class InMemoryCityRepository implements CityRepository {
   async getAllCities({
