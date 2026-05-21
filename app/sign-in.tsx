@@ -1,3 +1,4 @@
+import { useAuthSignIn } from "@/src/domain/auth/operations/useAuthSignIn";
 import { Container } from "@/src/ui/components/container";
 import { useState } from "react";
 import { Button, StyleSheet, TextInput } from "react-native";
@@ -7,8 +8,10 @@ const SignInScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const { mutate } = useAuthSignIn();
+
   const handleSignIn = () => {
-    console.log({ email, password });
+    mutate({ email, password });
   };
 
   return (
