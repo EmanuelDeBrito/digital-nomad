@@ -1,3 +1,5 @@
+import { ConsoleFeedback } from "@/src/infra/feedbackService/adapters/console/consoleFeedback";
+import { FeedbackServiceProvider } from "@/src/infra/feedbackService/feedback-service-provider";
 import { InMemoryRepository } from "@/src/infra/repositories/adapters/inMemory";
 import { RepositoryProvider } from "@/src/infra/repositories/repository-provider";
 import theme from "@/src/ui/theme/theme";
@@ -42,25 +44,27 @@ const RootLayout = () => {
   }
 
   return (
-    <RepositoryProvider value={InMemoryRepository}>
-      <ThemeProvider theme={theme}>
-        <Stack
-          screenOptions={{
-            contentStyle: { backgroundColor: theme.colors.background },
-            headerShown: false,
-            fullScreenGestureEnabled: true,
-          }}
-        >
-          <Stack.Screen name="(protected)" options={{ headerShown: false }} />
-          <Stack.Screen name="sign-in" />
-          <Stack.Screen
-            name="modal"
-            options={{ presentation: "modal", title: "Modal" }}
-          />
-        </Stack>
-        <StatusBar style="light" />
-      </ThemeProvider>
-    </RepositoryProvider>
+    <FeedbackServiceProvider value={ConsoleFeedback}>
+      <RepositoryProvider value={InMemoryRepository}>
+        <ThemeProvider theme={theme}>
+          <Stack
+            screenOptions={{
+              contentStyle: { backgroundColor: theme.colors.background },
+              headerShown: false,
+              fullScreenGestureEnabled: true,
+            }}
+          >
+            <Stack.Screen name="(protected)" options={{ headerShown: false }} />
+            <Stack.Screen name="sign-in" />
+            <Stack.Screen
+              name="modal"
+              options={{ presentation: "modal", title: "Modal" }}
+            />
+          </Stack>
+          <StatusBar style="light" />
+        </ThemeProvider>
+      </RepositoryProvider>
+    </FeedbackServiceProvider>
   );
 };
 
