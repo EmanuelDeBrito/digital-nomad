@@ -1,6 +1,6 @@
+import { City } from "@/src/domain/city/city";
 import { Box } from "../components/box";
 import { Text } from "../components/text";
-import { City } from "../types/city";
 
 type CityDetailsInfoProps = Pick<City, "name" | "country" | "description">;
 

@@ -1,11 +1,11 @@
-import { CityCard } from "@/src/components/city-card";
-import { Container } from "@/src/components/container";
-import { CityFilter } from "@/src/containers/city-filter";
 import { useCategories } from "@/src/domain/category/operations/useCategories";
 import { CityPreview } from "@/src/domain/city/city";
 import { useCities } from "@/src/domain/city/operations/useCities";
 import { useDebounce } from "@/src/hooks/useDebounce";
-import { useAppTheme } from "@/src/theme/useAppTheme";
+import { CityCard } from "@/src/ui/components/city-card";
+import { Container } from "@/src/ui/components/container";
+import { CityFilter } from "@/src/ui/containers/city-filter";
+import { useAppTheme } from "@/src/ui/theme/useAppTheme";
 import { useScrollToTop } from "@react-navigation/native";
 import { useRef, useState } from "react";
 import { ListRenderItemInfo } from "react-native";

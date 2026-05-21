@@ -1,6 +1,6 @@
 import { Pressable, PressableProps } from "react-native";
+import { IconName } from "../../types/icon-name";
 import { useAppTheme } from "../theme/useAppTheme";
-import { IconName } from "../types/icon-name";
 import { Box } from "./box";
 import { Icon } from "./icon";
 

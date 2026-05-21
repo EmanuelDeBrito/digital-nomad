@@ -1,10 +1,10 @@
 import createIconSetFromIcoMoon from "@expo/vector-icons/createIconSetFromIcoMoon";
+import { IconName } from "../../types/icon-name";
 import { ThemeColors } from "../theme/theme";
 import { useAppTheme } from "../theme/useAppTheme";
-import { IconName } from "../types/icon-name";
 
 const IconFromIcoMoon = createIconSetFromIcoMoon(
-  require("../../assets/icons/selection.json"),
+  require("../../../assets/icons/selection.json"),
   "IcoMoon",
   "icomoon.ttf",
 );

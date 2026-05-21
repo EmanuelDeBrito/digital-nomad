@@ -1,5 +1,5 @@
-import { Category, CategoryCode } from "../domain/category/category";
-import { IconName } from "../types/icon-name";
+import { Category, CategoryCode } from "../../domain/category/category";
+import { IconName } from "../../types/icon-name";
 import { Pill, PillProps } from "./pill";
 
 type CategoryPillProps = {

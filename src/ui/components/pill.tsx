@@ -1,5 +1,5 @@
 import { Pressable, PressableProps } from "react-native";
-import { IconName } from "../types/icon-name";
+import { IconName } from "../../types/icon-name";
 import { Box, BoxProps } from "./box";
 import { Icon } from "./icon";
 import { Text } from "./text";

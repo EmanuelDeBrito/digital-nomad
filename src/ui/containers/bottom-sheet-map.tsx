@@ -1,10 +1,10 @@
+import { City } from "@/src/domain/city/city";
 import { useWindowDimensions } from "react-native";
 import MapView from "react-native-maps";
 import { BottomSheet, BottomSheetProps } from "../components/bottom-sheet";
 import { Box } from "../components/box";
 import { IconButton } from "../components/icon-button";
 import { useAppTheme } from "../theme/useAppTheme";
-import { City } from "../types/city";
 
 type BottomSheetMapProps = Omit<BottomSheetProps, "children"> & {
   location: City["location"];
