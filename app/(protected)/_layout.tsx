@@ -1,6 +1,6 @@
 import { Redirect, Stack } from "expo-router";
 
-const isLogged = true;
+const isLogged = false;
 
 const ProtectedLayout = () => {
   if (!isLogged) {
