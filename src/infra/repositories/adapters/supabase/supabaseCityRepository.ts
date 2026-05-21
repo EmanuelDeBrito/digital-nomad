@@ -1,9 +1,8 @@
-import { Category, CategoryCode } from "../domain/category/category";
-import { City, CityPreview } from "../domain/city/city";
+import { City, CityPreview } from "@/src/domain/city/city";
 import {
   CityRepository,
   GetAllCitiesType,
-} from "../domain/city/cityRepository";
+} from "@/src/domain/city/cityRepository";
 import { supabase } from "./supabase";
 import { supabaseAdapter } from "./supabaseAdapter";
 
@@ -56,25 +55,6 @@ const getRelatedCities = async (cityId: string): Promise<CityPreview[]> => {
   }
 };
 
-const getAllCategories = async (): Promise<Category[]> => {
-  try {
-    const { data, error } = await supabase.from("categories").select("*");
-
-    if (error) {
-      throw new Error("Error trying list categories");
-    }
-
-    return data.map((category) => ({
-      id: category.id,
-      name: category.name,
-      description: category.description,
-      code: category.code as CategoryCode,
-    }));
-  } catch (error) {
-    throw error;
-  }
-};
-
 const getCityById = async (cityId: string): Promise<City> => {
   try {
     const { data, error } = await supabase
@@ -93,7 +73,7 @@ const getCityById = async (cityId: string): Promise<City> => {
   }
 };
 
-export const supabaseCityRepository: CityRepository = {
+export const SupabaseCityRepository: CityRepository = {
   getAllCities,
   getRelatedCities,
   getCityById,

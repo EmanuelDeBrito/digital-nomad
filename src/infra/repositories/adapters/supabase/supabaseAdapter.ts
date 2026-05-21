@@ -1,7 +1,7 @@
 // Este arquivo tem como função transformar os dados que vêm da API para os types do nosso projeto
 
-import { Category, CategoryCode } from "../domain/category/category";
-import { City, CityPreview, TouristAttraction } from "../domain/city/city";
+import { Category, CategoryCode } from "@/src/domain/category/category";
+import { City, CityPreview, TouristAttraction } from "@/src/domain/city/city";
 import { Database } from "./types";
 
 export const storageUrl = process.env.EXPO_PUBLIC_SUPABASE_STORAGE_URL;
