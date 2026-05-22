@@ -2,23 +2,20 @@ import { useFeedbackServiceContext } from "@/src/infra/feedbackService/feedback-
 import { useAppMutation } from "@/src/infra/operations/useAppMutation";
 import { useRepositoryContext } from "@/src/infra/repositories/repository-provider";
 import { useAuthContext } from "../auth-context";
-import { User } from "../user";
 
-export const useAuthSignIn = () => {
+export const useAuthSignOut = () => {
   const { auth } = useRepositoryContext();
-  const { saveAuthUser } = useAuthContext();
+  const { removeAuthUser } = useAuthContext();
   const feedbackService = useFeedbackServiceContext();
 
-  return useAppMutation<User, { email: string; password: string }>({
-    mutateFn: ({ email, password }) => auth.signIn(email, password),
-    onSuccess: (user) => {
-      saveAuthUser(user);
+  return useAppMutation({
+    mutateFn: () => auth.signOut(),
+    onSuccess: () => {
+      removeAuthUser();
       feedbackService.send({
         type: "success",
-        message: "Success: " + user.email,
+        message: "Logout made with success",
       });
     },
-    onError: (error) =>
-      feedbackService.send({ type: "error", message: "User not found" }),
   });
 };
