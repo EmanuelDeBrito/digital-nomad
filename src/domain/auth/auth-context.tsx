@@ -1,5 +1,5 @@
 import { useStorageContext } from "@/src/infra/storage/storage-provider";
-import { router } from "expo-router";
+import { router, SplashScreen } from "expo-router";
 import React, {
   PropsWithChildren,
   useContext,
@@ -7,6 +7,9 @@ import React, {
   useState,
 } from "react";
 import { User } from "./user";
+
+// Função que previni a Splash Screen de sair da tela automaticamente
+SplashScreen.preventAutoHideAsync();
 
 type AuthState = {
   authUser: User | null;
@@ -43,6 +46,11 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const loadAuthUser = async () => {
     try {
+      await new Promise((resolve) => {
+        setInterval(() => {
+          resolve("");
+        }, 2000);
+      });
       const user = await storage.getItem<User>(AUTH_KEY);
 
       if (user) {
@@ -54,6 +62,12 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       setIsReady(true);
     }
   };
+
+  useEffect(() => {
+    if (isReady) {
+      SplashScreen.hide();
+    }
+  }, [isReady]);
 
   useEffect(() => {
     loadAuthUser();
