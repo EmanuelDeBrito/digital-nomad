@@ -56,7 +56,7 @@ export const TextInput = ({
 const textInputAreaStyle: BoxProps = {
   flexDirection: "row",
   alignItems: "center",
-  height: 42,
+  height: 50,
   paddingHorizontal: "s16",
   borderWidth: 1,
   borderRadius: "default",
