@@ -1,4 +1,4 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useStorageContext } from "@/src/infra/storage/storage-provider";
 import { router } from "expo-router";
 import React, {
   PropsWithChildren,
@@ -25,26 +25,28 @@ const AuthContext = React.createContext<AuthState>({
 const AUTH_KEY = "AUTH_KEY";
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
+  const { storage } = useStorageContext();
+
   const [authUser, setAuthUser] = useState<User | null>(null);
   const [isReady, setIsReady] = useState(false);
 
   const saveAuthUser = async (user: User) => {
-    await AsyncStorage.setItem(AUTH_KEY, JSON.stringify(user));
+    await storage.setItem(AUTH_KEY, user);
     setAuthUser(user);
     router.replace("/(protected)/(tabs)");
   };
 
   const removeAuthUser = async () => {
-    await AsyncStorage.removeItem(AUTH_KEY);
+    await storage.removeItem(AUTH_KEY);
     setAuthUser(null);
   };
 
   const loadAuthUser = async () => {
     try {
-      const user = await AsyncStorage.getItem(AUTH_KEY);
+      const user = await storage.getItem<User>(AUTH_KEY);
 
       if (user) {
-        setAuthUser(JSON.parse(user));
+        setAuthUser(user);
       }
     } catch (error) {
       console.log(error);

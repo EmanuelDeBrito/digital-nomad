@@ -3,6 +3,8 @@ import { ConsoleFeedback } from "@/src/infra/feedbackService/adapters/console/co
 import { FeedbackServiceProvider } from "@/src/infra/feedbackService/feedback-service-provider";
 import { InMemoryRepository } from "@/src/infra/repositories/adapters/inMemory";
 import { RepositoryProvider } from "@/src/infra/repositories/repository-provider";
+import { AsyncStorageAdapter } from "@/src/infra/storage/adapters/async-storage";
+import { StorageProvider } from "@/src/infra/storage/storage-provider";
 import theme from "@/src/ui/theme/theme";
 import { ThemeProvider } from "@shopify/restyle";
 import { useFonts } from "expo-font";
@@ -45,32 +47,34 @@ const RootLayout = () => {
   }
 
   return (
-    <AuthProvider>
-      <FeedbackServiceProvider value={ConsoleFeedback}>
-        <RepositoryProvider value={InMemoryRepository}>
-          <ThemeProvider theme={theme}>
-            <Stack
-              screenOptions={{
-                contentStyle: { backgroundColor: theme.colors.background },
-                headerShown: false,
-                fullScreenGestureEnabled: true,
-              }}
-            >
-              <Stack.Screen
-                name="(protected)"
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen name="sign-in" />
-              <Stack.Screen
-                name="modal"
-                options={{ presentation: "modal", title: "Modal" }}
-              />
-            </Stack>
-            <StatusBar style="light" />
-          </ThemeProvider>
-        </RepositoryProvider>
-      </FeedbackServiceProvider>
-    </AuthProvider>
+    <StorageProvider storage={AsyncStorageAdapter}>
+      <AuthProvider>
+        <FeedbackServiceProvider value={ConsoleFeedback}>
+          <RepositoryProvider value={InMemoryRepository}>
+            <ThemeProvider theme={theme}>
+              <Stack
+                screenOptions={{
+                  contentStyle: { backgroundColor: theme.colors.background },
+                  headerShown: false,
+                  fullScreenGestureEnabled: true,
+                }}
+              >
+                <Stack.Screen
+                  name="(protected)"
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen name="sign-in" />
+                <Stack.Screen
+                  name="modal"
+                  options={{ presentation: "modal", title: "Modal" }}
+                />
+              </Stack>
+              <StatusBar style="light" />
+            </ThemeProvider>
+          </RepositoryProvider>
+        </FeedbackServiceProvider>
+      </AuthProvider>
+    </StorageProvider>
   );
 };
 
