@@ -43,7 +43,7 @@ export const Button = ({
       borderRadius="default"
       onPress={onPress}
     >
-      <Text variant="title16" color={buttonVariantColors.textColor}>
+      <Text variant="title18" color={buttonVariantColors.textColor}>
         {title}
       </Text>
     </TouchableOpacityBox>

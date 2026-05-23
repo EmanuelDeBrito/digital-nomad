@@ -55,6 +55,11 @@ const theme = createTheme({
       fontFamily: "PoppinsSemiBold",
       lineHeight: 24,
     },
+    title18: {
+      fontSize: 18,
+      fontFamily: "PoppinsSemiBold",
+      lineHeight: 18,
+    },
     title16: {
       fontSize: 16,
       fontFamily: "PoppinsSemiBold",
