@@ -20,7 +20,7 @@ const SignInScreen = () => {
   };
 
   return (
-    <Container>
+    <Container scrollable>
       <SafeAreaView>
         <Logo />
         <Text mb="s16" textAlign="center" variant="title22">

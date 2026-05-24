@@ -19,7 +19,7 @@ const SignUpScreen = () => {
   };
 
   return (
-    <Container>
+    <Container scrollable>
       <SafeAreaView>
         <Header title="Criar Conta" />
         <SignUpForm onSubmit={handleSignUp} />
