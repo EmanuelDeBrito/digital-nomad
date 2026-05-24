@@ -7,7 +7,7 @@ export const Logo = () => {
         alignSelf: "center",
         width: 150,
         height: 60,
-        marginTop: 40,
+        marginTop: 50,
         marginBottom: 60,
       }}
       source={require("@/assets/images/logo.png")}

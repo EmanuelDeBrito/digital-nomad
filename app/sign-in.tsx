@@ -4,6 +4,7 @@ import { Container } from "@/src/ui/components/container";
 import { Text } from "@/src/ui/components/text";
 import { TextInput } from "@/src/ui/components/text-input";
 import { Logo } from "@/src/ui/containers/logo";
+import { TextLink } from "@/src/ui/containers/text-link";
 import { Link } from "expo-router";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -44,14 +45,11 @@ const SignInScreen = () => {
           </Text>
         </Link>
         <Button title="Login" onPress={handleSignIn} />
-        <Link href={"/sign-up"} asChild>
-          <Text textAlign="center" mt="s20" variant="text16" color="gray2">
-            Ainda não tem uma conta?{" "}
-            <Text variant="title16" color="primary">
-              Criar
-            </Text>
-          </Text>
-        </Link>
+        <TextLink
+          text="Ainda não tem uma conta?"
+          highlighted="Criar"
+          href={"/sign-up"}
+        />
       </SafeAreaView>
     </Container>
   );
