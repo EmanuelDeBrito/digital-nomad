@@ -14,4 +14,8 @@ export class InMemoryAuthUserRepository implements UserAuthRepository {
   }
 
   async signOut(): Promise<void> {}
+
+  async sendResetPasswordEmail(email: string): Promise<void> {
+    console.log("The link for reset your password has been sent ", email);
+  }
 }
