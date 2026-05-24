@@ -41,8 +41,10 @@ export const signOut = async (): Promise<void> => {
   await supabase.auth.signOut();
 };
 
-export const sendResetPasswordEmail = async (): Promise<void> => {
-  return;
+export const sendResetPasswordEmail = async (email: string): Promise<void> => {
+  await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${process.env.EXPO_PUBLIC_WEB_URL}/reset-password`,
+  });
 };
 
 export const SupabaseAuthRepository: UserAuthRepository = {
