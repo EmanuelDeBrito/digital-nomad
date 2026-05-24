@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const SignUpSchema = z
+export const signUpSchema = z
   .object({
     fullName: z
       .string({ error: "Campo obrigatório!" })
@@ -20,3 +20,5 @@ export const SignUpSchema = z
     error: "As senhas devem ser iguais",
     path: ["confirmPassword"],
   });
+
+export type SignUpSchemaType = z.infer<typeof signUpSchema>;
