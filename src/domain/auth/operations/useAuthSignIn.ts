@@ -19,6 +19,10 @@ export const useAuthSignIn = () => {
       });
     },
     onError: (error) =>
-      feedbackService.send({ type: "error", message: "User not found" }),
+      feedbackService.send({
+        type: "error",
+        message: "User not found",
+        description: "User not found in our database",
+      }),
   });
 };

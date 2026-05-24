@@ -1,7 +1,8 @@
 import { AuthProvider } from "@/src/domain/auth/auth-context";
-import { AlertFeedback } from "@/src/infra/feedbackService/adapters/alert/alert-feedback";
+import { Toast } from "@/src/infra/feedbackService/adapters/toast/toast";
+import { ToastFeedback } from "@/src/infra/feedbackService/adapters/toast/toastFeedback";
 import { FeedbackServiceProvider } from "@/src/infra/feedbackService/feedback-service-provider";
-import { SupabaseRepository } from "@/src/infra/repositories/adapters/supabase";
+import { InMemoryRepository } from "@/src/infra/repositories/adapters/inMemory";
 import { RepositoryProvider } from "@/src/infra/repositories/repository-provider";
 import { AsyncStorageAdapter } from "@/src/infra/storage/adapters/async-storage";
 import { StorageProvider } from "@/src/infra/storage/storage-provider";
@@ -49,8 +50,8 @@ const RootLayout = () => {
   return (
     <StorageProvider storage={AsyncStorageAdapter}>
       <AuthProvider>
-        <FeedbackServiceProvider value={AlertFeedback}>
-          <RepositoryProvider value={SupabaseRepository}>
+        <FeedbackServiceProvider value={ToastFeedback}>
+          <RepositoryProvider value={InMemoryRepository}>
             <ThemeProvider theme={theme}>
               <Stack
                 screenOptions={{
@@ -71,6 +72,7 @@ const RootLayout = () => {
                   options={{ presentation: "modal", title: "Modal" }}
                 />
               </Stack>
+              <Toast />
               <StatusBar style="light" />
             </ThemeProvider>
           </RepositoryProvider>
