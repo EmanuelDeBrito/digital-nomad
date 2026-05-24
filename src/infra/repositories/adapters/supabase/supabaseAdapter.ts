@@ -1,7 +1,9 @@
 // Este arquivo tem como função transformar os dados que vêm da API para os types do nosso projeto
 
+import { User } from "@/src/domain/auth/user";
 import { Category, CategoryCode } from "@/src/domain/category/category";
 import { City, CityPreview, TouristAttraction } from "@/src/domain/city/city";
+import { AuthUser } from "@supabase/supabase-js";
 import { Database } from "./types";
 
 export const storageUrl = process.env.EXPO_PUBLIC_SUPABASE_STORAGE_URL;
@@ -67,7 +69,20 @@ const toTouristAttraction = (row: TouristAttractionRow): TouristAttraction => {
   };
 };
 
+const toUser = (supabaseAuthUser: AuthUser): User => {
+  if (!supabaseAuthUser.email) {
+    throw new Error("Email not found");
+  }
+
+  return {
+    id: supabaseAuthUser.id,
+    email: supabaseAuthUser.email,
+    fullname: supabaseAuthUser.user_metadata.fullname,
+  };
+};
+
 export const supabaseAdapter = {
   toCity,
   toCityPreview,
+  toUser,
 };

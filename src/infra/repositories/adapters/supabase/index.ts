@@ -1,10 +1,10 @@
 import { Repositories } from "@/src/domain/repositories";
-import { InMemoryAuthUserRepository } from "../inMemory/inMemoryAuthUserRepository";
+import { SupabaseAuthRepository } from "./supabaseAuthRepository";
 import { SupabaseCategoryRepository } from "./supabaseCategoryRepository";
 import { SupabaseCityRepository } from "./supabaseCityRepository";
 
-export const SupabeseRepository: Repositories = {
-  auth: new InMemoryAuthUserRepository(), // Replace with SUPABASE AUTH implementation
+export const SupabaseRepository: Repositories = {
+  auth: SupabaseAuthRepository,
   city: SupabaseCityRepository,
   category: SupabaseCategoryRepository,
 };
