@@ -5,5 +5,5 @@ const sum = (n1: number, n2: number): number => {
 test("sumTest", () => {
   const value = sum(10, 10);
 
-  expect(value).toBe(21);
+  expect(value).toBe(20);
 });
