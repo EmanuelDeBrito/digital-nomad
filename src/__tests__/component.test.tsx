@@ -1,4 +1,9 @@
-import { fireEvent, render, screen } from "@testing-library/react-native";
+import {
+  fireEvent,
+  render,
+  screen,
+  userEvent,
+} from "@testing-library/react-native";
 import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 
@@ -25,17 +30,26 @@ const Component = ({ label, isLoading }: ComponentProps) => {
         onPress={() => setCount((prev) => prev + 1)}
       >
         <Text>Count: {count}</Text>
-        <Text onPress={() => setCount(0)}>Reset Count</Text>
       </Pressable>
+
+      <Text onPress={() => setCount(0)}>Reset Count</Text>
     </View>
   );
 };
 
 describe("Component", () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
   it("Should show a Text Component with label(foo bar) when isn't loading", () => {
     render(<Component label="foo bar" isLoading={false} />);
 
-    const element = screen.getByText(/foo ba/i);
+    const element = screen.getByText(/foo bar/i);
 
     expect(element).toBeOnTheScreen();
   });
@@ -58,5 +72,23 @@ describe("Component", () => {
     fireEvent.press(screen.getByTestId("count-area"));
 
     expect(screen.getByText(/Count: 1/)).toBeOnTheScreen();
+  });
+
+  it("Should show a reset count value when the text Reset Value is pressed", async () => {
+    render(<Component label="foo bar" isLoading={false} />);
+
+    const user = userEvent.setup();
+    const element = screen.getByTestId("count-area");
+
+    await user.press(element);
+    await user.press(element);
+    await user.press(element);
+    await user.press(element);
+
+    expect(screen.getByText("Count: 4")).toBeOnTheScreen();
+
+    await user.press(screen.getByText("Reset Count"));
+
+    expect(screen.getByText("Count: 0")).toBeOnTheScreen();
   });
 });
