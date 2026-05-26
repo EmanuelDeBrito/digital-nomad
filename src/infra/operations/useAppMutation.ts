@@ -25,7 +25,7 @@ export function useAppMutation<DataT, VariablesT>({
   DataT,
   VariablesT
 > {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<unknown>();
 
   const mutate = async (variables: VariablesT) => {

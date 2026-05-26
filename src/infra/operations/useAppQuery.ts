@@ -13,7 +13,7 @@ export function useAppQuery<DataT>(
   dependencies: React.DependencyList = [],
 ): UseAppQueryReturn<DataT> {
   const [data, setData] = useState<DataT>();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<unknown>();
 
   const _fetchData = async () => {
