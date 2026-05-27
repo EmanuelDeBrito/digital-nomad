@@ -24,6 +24,10 @@ jest.mock("@/src/infra/feedbackService/feedback-service-provider", () => ({
   useFeedbackServiceContext: () => ({ send: mockSendFeedback }),
 }));
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe("useAuthSignIn()", () => {
   it("Should call SaveAuthUser function and Send a success feedback on successful sign in", async () => {
     const user: User = {
@@ -48,6 +52,27 @@ describe("useAuthSignIn()", () => {
     expect(mockSendFeedback).toHaveBeenCalledWith({
       type: "success",
       message: "Success: " + user.email,
+    });
+  });
+
+  it("Should show a feedback error message on failed sign in", async () => {
+    const error = new Error("User not found in our database");
+
+    mockSignIn.mockRejectedValueOnce(error);
+
+    const { result } = renderHook(() => useAuthSignIn());
+
+    await act(async () => {
+      await result.current.mutate({
+        email: "emanuel@gmail.com",
+        password: "123",
+      });
+    });
+
+    expect(mockSendFeedback).toHaveBeenCalledWith({
+      type: "error",
+      message: "User not found",
+      description: error.message,
     });
   });
 });
