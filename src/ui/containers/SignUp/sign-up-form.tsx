@@ -24,6 +24,7 @@ export const SignUpForm = ({ onSubmit }: SignUpFormProps) => {
         name="fullName"
         render={({ field, fieldState }) => (
           <TextInput
+            testID="name-input"
             label="Nome Completo"
             placeholder="Digite seu nome"
             errorMessage={fieldState.error?.message}
@@ -37,6 +38,7 @@ export const SignUpForm = ({ onSubmit }: SignUpFormProps) => {
         name="email"
         render={({ field, fieldState }) => (
           <TextInput
+            testID="email-input"
             label="E-mail"
             placeholder="Digite seu email"
             keyboardType="email-address"
@@ -51,6 +53,7 @@ export const SignUpForm = ({ onSubmit }: SignUpFormProps) => {
         name="password"
         render={({ field, fieldState }) => (
           <TextInput
+            testID="password-input"
             label="Senha"
             placeholder="Digite sua senha"
             secureTextEntry
@@ -65,6 +68,7 @@ export const SignUpForm = ({ onSubmit }: SignUpFormProps) => {
         name="confirmPassword"
         render={({ field, fieldState }) => (
           <TextInput
+            testID="confirm-password-input"
             label="Confirmar Senha"
             placeholder="Confirme sua senha"
             secureTextEntry
@@ -74,7 +78,12 @@ export const SignUpForm = ({ onSubmit }: SignUpFormProps) => {
           />
         )}
       />
-      <Button mt="s16" title="Criar conta" onPress={handleSubmit(onSubmit)} />
+      <Button
+        testID="signup-button"
+        mt="s16"
+        title="Criar conta"
+        onPress={handleSubmit(onSubmit)}
+      />
     </Box>
   );
 };
