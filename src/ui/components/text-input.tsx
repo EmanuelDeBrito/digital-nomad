@@ -15,6 +15,7 @@ type TextInputProps = RNTextInputProps & {
 export const TextInput = ({
   label,
   errorMessage,
+  testID,
   ...textInputProps
 }: TextInputProps) => {
   const { colors, textVariants } = useAppTheme();
@@ -31,8 +32,13 @@ export const TextInput = ({
       <Text mb="s4" variant="title14">
         {label}
       </Text>
-      <Box {...textInputAreaStyle} borderColor={borderColor}>
+      <Box
+        testID={`${testID}-container`}
+        {...textInputAreaStyle}
+        borderColor={borderColor}
+      >
         <RNTextInput
+          testID={testID}
           {...textInputProps}
           style={{
             flexShrink: 1,
