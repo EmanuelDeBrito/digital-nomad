@@ -6,10 +6,10 @@ import { InMemoryRepository } from "@/src/infra/repositories/adapters/inMemory";
 import { RepositoryProvider } from "@/src/infra/repositories/repository-provider";
 import { AsyncStorageAdapter } from "@/src/infra/storage/adapters/async-storage";
 import { StorageProvider } from "@/src/infra/storage/storage-provider";
+import { AppStack } from "@/src/ui/navigation/app-stack";
 import theme from "@/src/ui/theme/theme";
 import { ThemeProvider } from "@shopify/restyle";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 
 export const unstable_settings = {
@@ -53,25 +53,7 @@ const RootLayout = () => {
         <FeedbackServiceProvider value={ToastFeedback}>
           <RepositoryProvider value={InMemoryRepository}>
             <ThemeProvider theme={theme}>
-              <Stack
-                screenOptions={{
-                  contentStyle: { backgroundColor: theme.colors.background },
-                  headerShown: false,
-                  fullScreenGestureEnabled: true,
-                }}
-              >
-                <Stack.Screen
-                  name="(protected)"
-                  options={{ headerShown: false }}
-                />
-                <Stack.Screen name="sign-in" />
-                <Stack.Screen name="sign-up" />
-                <Stack.Screen name="reset-password" />
-                <Stack.Screen
-                  name="modal"
-                  options={{ presentation: "modal", title: "Modal" }}
-                />
-              </Stack>
+              <AppStack />
               <Toast />
               <StatusBar style="light" />
             </ThemeProvider>

@@ -10,7 +10,7 @@ import { router } from "expo-router";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const ResetPassowordScreen = () => {
+const ResetPasswordScreen = () => {
   const [email, setEmail] = useState("");
   const { mutate: sendResetPasswordEmail } = useAuthSendResetPasswordEmail({
     onSuccess: router.back,
@@ -46,4 +46,4 @@ const ResetPassowordScreen = () => {
   );
 };
 
-export default ResetPassowordScreen;
+export default ResetPasswordScreen;
