@@ -5,13 +5,13 @@ describe("Integration Test: Auth Flow", () => {
   it("Should Sign-In user with valid credentials and allow user to do Sign-Out", async () => {
     RenderApp();
 
-    // Verify if home screen is rendered
+    // Verify if Sign In Screen is rendered
     expect(await screen.findByText("Bem-vindo"));
 
-    // Fill email and password fileds
+    // Fill email and password fields
     fireEvent.changeText(
       screen.getByPlaceholderText("Digite seu email"),
-      "emanuelbrit16@gmail.com",
+      "emanuel@gmail.com",
     );
     fireEvent.changeText(
       screen.getByPlaceholderText("Digite sua senha"),
@@ -26,6 +26,17 @@ describe("Integration Test: Auth Flow", () => {
       await screen.findByText("Success: emanuel@gmail.com"),
     ).toBeOnTheScreen();
 
+    // Verify if Home Screen is rendered
+    expect(await screen.findByText("Rio de Janeiro")).toBeOnTheScreen();
+    expect(screen.getByText("Bali")).toBeOnTheScreen();
+
     // Pressing profile tab
+    fireEvent.press(screen.getByText("Perfil"));
+
+    // Pressing Logout button
+    fireEvent.press(screen.getByText("Logout"));
+
+    // Verify if user was redirected to Sign In Screen
+    expect(await screen.findByText("Bem-vindo"));
   });
 });
