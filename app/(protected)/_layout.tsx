@@ -4,9 +4,9 @@ import { Redirect, Stack } from "expo-router";
 const ProtectedLayout = () => {
   const { authUser, isReady } = useAuthContext();
 
-  if (!isReady) {
-    return null;
-  }
+  // if (!isReady) {
+  //   return null;
+  // }
 
   if (!authUser) {
     return <Redirect href={"/sign-in"} />;

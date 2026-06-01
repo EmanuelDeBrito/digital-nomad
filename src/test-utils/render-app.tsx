@@ -52,6 +52,6 @@ export const RenderApp = () => {
       "sign-up": () => <SignUpScreen />,
       "reset-password": () => <ResetPasswordScreen />,
     },
-    { wrapper: Wrapper, initialUrl: "(protected)/_layout" },
+    { wrapper: Wrapper, initialUrl: "/" },
   );
 };
