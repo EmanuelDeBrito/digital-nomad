@@ -15,6 +15,7 @@ export const IconButton = ({ iconName, onPress }: IconButtonProps) => {
   return (
     <Pressable onPress={onPress}>
       <Box
+        testID={iconName}
         justifyContent="center"
         alignItems="center"
         width={48}

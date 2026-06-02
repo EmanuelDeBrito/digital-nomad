@@ -29,6 +29,7 @@ export const SearchInput = ({
       style={{ borderColor: isFocused ? colors.primary : colors.gray1 }}
     >
       <TextInput
+        testID="search-input"
         style={{
           ...textVariants.title16,
           flexShrink: 1,
