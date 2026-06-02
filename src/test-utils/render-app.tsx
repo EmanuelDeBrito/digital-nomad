@@ -10,7 +10,8 @@ import SignUpScreen from "@/app/sign-up";
 import { ThemeProvider } from "@shopify/restyle";
 import { renderRouter } from "expo-router/testing-library";
 import React from "react";
-import { AuthProvider } from "../domain/auth/auth-context";
+import { AuthContext, AuthProvider } from "../domain/auth/auth-context";
+import { User } from "../domain/auth/user";
 import { Toast } from "../infra/feedbackService/adapters/toast/toast";
 import { ToastFeedback } from "../infra/feedbackService/adapters/toast/toastFeedback";
 import { FeedbackServiceProvider } from "../infra/feedbackService/feedback-service-provider";
@@ -21,11 +22,36 @@ import { StorageProvider } from "../infra/storage/storage-provider";
 import { AppStack } from "../ui/navigation/app-stack";
 import theme from "../ui/theme/theme";
 
-export const RenderApp = () => {
+const AuthProviderMock = ({ children }: React.PropsWithChildren) => {
+  const authUser: User = {
+    id: "1",
+    email: "emanuel@gmail.com",
+    fullname: "Emanuel de Brito",
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{
+        isReady: true,
+        authUser,
+        saveAuthUser: async () => {},
+        removeAuthUser: async () => {},
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const RenderApp = (options?: { userIsAuthenticated?: boolean }) => {
+  const FinalAuthProvider = options?.userIsAuthenticated
+    ? AuthProviderMock
+    : AuthProvider;
+
   const Wrapper = ({ children }: React.PropsWithChildren) => {
     return (
       <StorageProvider storage={inMemoryStorage}>
-        <AuthProvider>
+        <FinalAuthProvider>
           <FeedbackServiceProvider value={ToastFeedback}>
             <RepositoryProvider value={InMemoryRepository}>
               <ThemeProvider theme={theme}>
@@ -34,7 +60,7 @@ export const RenderApp = () => {
               </ThemeProvider>
             </RepositoryProvider>
           </FeedbackServiceProvider>
-        </AuthProvider>
+        </FinalAuthProvider>
       </StorageProvider>
     );
   };

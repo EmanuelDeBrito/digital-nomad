@@ -18,7 +18,7 @@ type AuthState = {
   removeAuthUser: () => Promise<void>;
 };
 
-const AuthContext = React.createContext<AuthState>({
+export const AuthContext = React.createContext<AuthState>({
   authUser: null,
   isReady: false,
   saveAuthUser: async () => {},
