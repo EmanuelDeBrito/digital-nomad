@@ -1,8 +1,10 @@
 import { useCategories } from "@/src/domain/category/operations/useCategories";
 import { CityPreview } from "@/src/domain/city/city";
 import { useCities } from "@/src/domain/city/operations/useCities";
+import { Box } from "@/src/ui/components/box";
 import { CityCard } from "@/src/ui/components/city-card";
 import { Container } from "@/src/ui/components/container";
+import { Text } from "@/src/ui/components/text";
 import { CityFilter } from "@/src/ui/containers/city-filter";
 import { useAppTheme } from "@/src/ui/theme/useAppTheme";
 import { useDebounce } from "@/src/utils/hooks/useDebounce";
@@ -27,7 +29,11 @@ const HomeScreen = () => {
   const debouncedCityName = useDebounce(cityName);
 
   // Filter Function - Return supabase data
-  const { data: cityPreviewList } = useCities({
+  const {
+    data: cityPreviewList,
+    loading,
+    error,
+  } = useCities({
     cityName: debouncedCityName,
     categoryId: selectedCategoryId,
   });
@@ -37,6 +43,24 @@ const HomeScreen = () => {
 
   const flatListRef = useRef(null);
   useScrollToTop(flatListRef);
+
+  const renderEmptyComponent = () => {
+    let Component;
+
+    if (loading) {
+      Component = <Text>Carregando cidades...</Text>;
+    } else if (error) {
+      Component = <Text>Erro ao carregar cidades...</Text>;
+    } else {
+      Component = <Text>Nenhuma cidade encontrada</Text>;
+    }
+
+    return (
+      <Box alignItems="center" mt="s20">
+        {Component}
+      </Box>
+    );
+  };
 
   const renderItem = ({ item }: ListRenderItemInfo<CityPreview>) => {
     return <CityCard cityPreview={item} />;
@@ -56,6 +80,7 @@ const HomeScreen = () => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
+        ListEmptyComponent={renderEmptyComponent()}
         ListHeaderComponent={
           <CityFilter
             categories={categories}

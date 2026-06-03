@@ -24,6 +24,14 @@ export class InMemoryCityRepository implements CityRepository {
       });
     }
 
+    // await new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     resolve("");
+    //   }, 10000);
+    // });
+
+    // throw new Error("Server is down");
+
     return cityPreviewList;
   }
 
