@@ -50,7 +50,7 @@ const HomeScreen = () => {
     if (loading) {
       Component = <Text>Carregando cidades...</Text>;
     } else if (error) {
-      Component = <Text>Erro ao carregar cidades...</Text>;
+      Component = <Text>Erro ao carregar cidades</Text>;
     } else {
       Component = <Text>Nenhuma cidade encontrada</Text>;
     }

@@ -9,9 +9,12 @@ import SignInScreen from "@/app/sign-in";
 import SignUpScreen from "@/app/sign-up";
 import { ThemeProvider } from "@shopify/restyle";
 import { renderRouter } from "expo-router/testing-library";
+import clonedeep from "lodash.clonedeep";
+import merge from "lodash.merge";
 import React from "react";
 import { AuthContext, AuthProvider } from "../domain/auth/auth-context";
 import { User } from "../domain/auth/user";
+import { Repositories } from "../domain/repositories";
 import { Toast } from "../infra/feedbackService/adapters/toast/toast";
 import { ToastFeedback } from "../infra/feedbackService/adapters/toast/toastFeedback";
 import { FeedbackServiceProvider } from "../infra/feedbackService/feedback-service-provider";
@@ -21,6 +24,10 @@ import { inMemoryStorage } from "../infra/storage/adapters/inMemoryStorage";
 import { StorageProvider } from "../infra/storage/storage-provider";
 import { AppStack } from "../ui/navigation/app-stack";
 import theme from "../ui/theme/theme";
+
+type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
 
 const AuthProviderMock = ({ children }: React.PropsWithChildren) => {
   const authUser: User = {
@@ -43,17 +50,25 @@ const AuthProviderMock = ({ children }: React.PropsWithChildren) => {
   );
 };
 
-export const RenderApp = (options?: { userIsAuthenticated?: boolean }) => {
+export const RenderApp = (options?: {
+  userIsAuthenticated?: boolean;
+  repositories?: DeepPartial<Repositories>;
+}) => {
   const FinalAuthProvider = options?.userIsAuthenticated
     ? AuthProviderMock
     : AuthProvider;
+
+  const FinalRepository: Repositories = merge(
+    clonedeep(InMemoryRepository),
+    options?.repositories ?? {},
+  );
 
   const Wrapper = ({ children }: React.PropsWithChildren) => {
     return (
       <StorageProvider storage={inMemoryStorage}>
         <FinalAuthProvider>
           <FeedbackServiceProvider value={ToastFeedback}>
-            <RepositoryProvider value={InMemoryRepository}>
+            <RepositoryProvider value={FinalRepository}>
               <ThemeProvider theme={theme}>
                 {children}
                 <Toast />

@@ -36,4 +36,42 @@ describe("Integration Test: Home", () => {
     // Checking if search returns the correct city
     expect(screen.getByText("Rio de Janeiro")).toBeOnTheScreen();
   }, 50000);
+
+  it("Should show an empty message when cities list is empty", async () => {
+    RenderApp({
+      userIsAuthenticated: true,
+      repositories: {
+        city: {
+          getAllCities: async () => {
+            return [];
+          },
+        },
+      },
+    });
+
+    expect(await screen.findByText("Carregando cidades...")).toBeOnTheScreen();
+    expect(
+      await screen.findByText("Nenhuma cidade encontrada"),
+    ).toBeOnTheScreen();
+  });
+
+  it("Should show an error message when cities list data source returns an error", async () => {
+    RenderApp({
+      userIsAuthenticated: true,
+      repositories: {
+        city: {
+          getAllCities: async () => {
+            return Promise.reject(
+              new Error("Server is down now, please back later."),
+            );
+          },
+        },
+      },
+    });
+
+    expect(await screen.findByText("Carregando cidades...")).toBeOnTheScreen();
+    expect(
+      await screen.findByText("Erro ao carregar cidades"),
+    ).toBeOnTheScreen();
+  });
 });
